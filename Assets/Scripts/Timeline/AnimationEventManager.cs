@@ -25,22 +25,20 @@ public class AnimationEventManager : MonoBehaviour
     {
         if (!isPaused)
         {
-            // Invoke the OnUpdate event with the current time
-            OnUpdate?.Invoke(Time.time);
 
-            CurrentTime = Time.time;
+            CurrentTime = CurrentTime + Time.deltaTime;
 
             if (DebugTime)
             {
                 //debug.logging current time
-                Debug.Log(Time.time);
+                Debug.Log(CurrentTime);
             }
 
             foreach (var animEventObject in animationEvents)
             {
                 AnimationEventTrigger animEvent = animEventObject.GetComponent<AnimationEventTrigger>();
 
-                if (animEvent != null && Time.time >= animEvent.GetTime())
+                if (animEvent != null && CurrentTime >= animEvent.GetTime())
                 {
                     animEvent.TriggerEvent();
                 }
