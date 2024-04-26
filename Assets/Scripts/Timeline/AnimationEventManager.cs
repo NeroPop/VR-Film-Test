@@ -1,11 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimationEventManager : MonoBehaviour
 {
-    public AnimationEvent[] animationEvents;
+    [SerializeField] private float currentTime = 0;
+    public bool isPaused = false;
 
-    private float currentTime = 0;
-    private bool isPaused = false;
+    public List<GameObject> animationEvents;
+
+    private void Start()
+    {
+        Debug.Log("Hello World");
+    }
 
     private void Update()
     {
@@ -13,9 +19,11 @@ public class AnimationEventManager : MonoBehaviour
         {
             currentTime += Time.deltaTime;
 
-            foreach (var animEvent in animationEvents)
+            foreach (var animEventObject in animationEvents)
             {
-                if (currentTime >= animEvent.timeInSeconds)
+                AnimationEventTrigger animEvent = animEventObject.GetComponent<AnimationEventTrigger>();
+
+                if (animEvent != null && currentTime >= animEvent.timeInSeconds)
                 {
                     animEvent.onTrigger.Invoke();
                 }
@@ -33,15 +41,8 @@ public class AnimationEventManager : MonoBehaviour
         isPaused = false;
     }
 
-    public void RemoveEvent(AnimationEvent eventToRemove)
+    public void RemoveEvent(GameObject eventToRemove)
     {
-        for (int i = 0; i < animationEvents.Length; i++)
-        {
-            if (animationEvents[i] == eventToRemove)
-            {
-                animationEvents[i] = null;
-                break;
-            }
-        }
+        animationEvents.Remove(eventToRemove);
     }
 }

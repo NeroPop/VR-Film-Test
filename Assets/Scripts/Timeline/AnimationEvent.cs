@@ -5,5 +5,6 @@ using UnityEngine.Events;
 public class AnimationEvent : ScriptableObject
 {
     public float timeInSeconds;
+    public MonoBehaviour targetScript;
     public UnityEvent onTrigger;
 }
