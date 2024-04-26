@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class AnimationEventManager : MonoBehaviour
 {
-    [SerializeField] private float currentTime = 0;
     public bool isPaused = false;
 
     public List<GameObject> animationEvents;
@@ -17,15 +16,14 @@ public class AnimationEventManager : MonoBehaviour
     {
         if (!isPaused)
         {
-            currentTime += Time.deltaTime;
 
             foreach (var animEventObject in animationEvents)
             {
                 AnimationEventTrigger animEvent = animEventObject.GetComponent<AnimationEventTrigger>();
 
-                if (animEvent != null && currentTime >= animEvent.timeInSeconds)
+                if (animEvent != null && Time.time >= animEvent.GetTime())
                 {
-                    animEvent.onTrigger.Invoke();
+                    animEvent.TriggerEvent();
                 }
             }
         }
@@ -41,8 +39,13 @@ public class AnimationEventManager : MonoBehaviour
         isPaused = false;
     }
 
-    public void RemoveEvent(GameObject eventToRemove)
+    public void AddEvent(GameObject eventObject)
     {
-        animationEvents.Remove(eventToRemove);
+        animationEvents.Add(eventObject);
+    }
+
+    public void RemoveEvent(GameObject eventObject)
+    {
+        animationEvents.Remove(eventObject);
     }
 }

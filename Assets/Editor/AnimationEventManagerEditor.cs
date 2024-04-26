@@ -5,17 +5,23 @@ using UnityEditor;
 public class AnimationEventManagerEditor : Editor
 {
     private SerializedProperty animationEventsProp;
+    private SerializedProperty isPausedProp;
 
     private void OnEnable()
     {
         animationEventsProp = serializedObject.FindProperty("animationEvents");
+        isPausedProp = serializedObject.FindProperty("isPaused");
     }
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
 
-        EditorGUILayout.PropertyField(animationEventsProp, true);
+        // Display the isPaused variable
+        EditorGUILayout.PropertyField(isPausedProp);
+
+        // Display the animationEvents property
+        EditorGUILayout.PropertyField(animationEventsProp, new GUIContent("Animation Events"), true);
 
         serializedObject.ApplyModifiedProperties();
     }
