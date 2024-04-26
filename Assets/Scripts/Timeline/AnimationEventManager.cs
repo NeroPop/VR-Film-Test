@@ -1,21 +1,33 @@
+using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class AnimationEventManager : MonoBehaviour
 {
     public bool isPaused = false;
 
+    public bool DebugTime = false;
+
+    // Define the OnUpdate event
+    public event Action<float> OnUpdate;
+
     public List<GameObject> animationEvents;
 
     private void Start()
     {
-        Debug.Log("Hello World");
+        Debug.Log("Manager Started");
     }
 
     private void Update()
     {
         if (!isPaused)
         {
+            // Invoke the OnUpdate event with the current time
+            OnUpdate?.Invoke(Time.time);
+
+            //debug.logging current time
+            Debug.Log(Time.time);
 
             foreach (var animEventObject in animationEvents)
             {

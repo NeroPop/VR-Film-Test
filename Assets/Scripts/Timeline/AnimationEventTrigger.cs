@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class AnimationEventTrigger : MonoBehaviour
 {
-    [SerializeField] private float timeInSeconds;
+    public float timeInSeconds;
     [SerializeField] private UnityEvent onTrigger;
 
     public float GetTime()
