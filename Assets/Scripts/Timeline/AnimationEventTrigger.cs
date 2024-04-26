@@ -6,6 +6,8 @@ public class AnimationEventTrigger : MonoBehaviour
     public float timeInSeconds;
     [SerializeField] private UnityEvent onTrigger;
 
+    private bool triggered = false;
+
     public float GetTime()
     {
         return timeInSeconds;
@@ -14,6 +16,14 @@ public class AnimationEventTrigger : MonoBehaviour
     public void TriggerEvent()
     {
         onTrigger.Invoke();
-        Debug.Log("triggered event");
+
+        if (!triggered)
+        {
+            triggered = true;
+            Debug.Log("triggered event");
+            gameObject.SetActive(false);
+            //  Destroy(gameObject, 3);
+        }
+
     }
 }

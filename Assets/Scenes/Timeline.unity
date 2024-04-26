@@ -617,7 +617,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e594cbcf6a0b27147afbc222887d0454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentTime: 0
   isPaused: 0
+  DebugTime: 0
+  StartTime: 0
   animationEvents:
   - {fileID: 827192428}
   - {fileID: 1878091522}

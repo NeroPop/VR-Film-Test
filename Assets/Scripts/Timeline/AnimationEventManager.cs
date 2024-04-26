@@ -40,6 +40,8 @@ public class AnimationEventManager : MonoBehaviour
                 Debug.Log(CurrentTime);
             }
 
+            // List<GameObject> eventsToRemove = new List<GameObject>(); // Collect events to remove
+
             foreach (var animEventObject in animationEvents)
             {
                 AnimationEventTrigger animEvent = animEventObject.GetComponent<AnimationEventTrigger>();
@@ -47,8 +49,14 @@ public class AnimationEventManager : MonoBehaviour
                 if (animEvent != null && CurrentTime >= animEvent.GetTime())
                 {
                     animEvent.TriggerEvent();
+                   // eventsToRemove.Add(animEventObject);
                 }
             }
+            // Remove events after iterating
+          /*  foreach (var eventToRemove in eventsToRemove)
+            {
+                RemoveEvent(eventToRemove);
+            } */
         }
     }
 
