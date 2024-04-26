@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
-
+/*
 [CustomEditor(typeof(AnimationEventManager))]
 public class AnimationEventManagerEditor : Editor
 {
@@ -68,3 +68,4 @@ public class AnimationEventManagerEditor : Editor
         currentTime = time;
     }
 }
+*/

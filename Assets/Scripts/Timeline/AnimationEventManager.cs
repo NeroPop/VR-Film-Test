@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class AnimationEventManager : MonoBehaviour
 {
+    [SerializeField] private float CurrentTime;
+
     public bool isPaused = false;
 
     public bool DebugTime = false;
@@ -26,8 +28,13 @@ public class AnimationEventManager : MonoBehaviour
             // Invoke the OnUpdate event with the current time
             OnUpdate?.Invoke(Time.time);
 
-            //debug.logging current time
-            Debug.Log(Time.time);
+            CurrentTime = Time.time;
+
+            if (DebugTime)
+            {
+                //debug.logging current time
+                Debug.Log(Time.time);
+            }
 
             foreach (var animEventObject in animationEvents)
             {
