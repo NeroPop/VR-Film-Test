@@ -11,13 +11,17 @@ public class AnimationEventManager : MonoBehaviour
 
     public bool DebugTime = false;
 
+    [SerializeField] private float StartTime = 0;
+
     // Define the OnUpdate event
     public event Action<float> OnUpdate;
 
     public List<GameObject> animationEvents;
 
+
     private void Start()
     {
+        CurrentTime = StartTime;
         Debug.Log("Manager Started");
     }
 
@@ -25,6 +29,8 @@ public class AnimationEventManager : MonoBehaviour
     {
         if (!isPaused)
         {
+            // Invoke the OnUpdate event with the current time
+            OnUpdate?.Invoke(Time.deltaTime);
 
             CurrentTime = CurrentTime + Time.deltaTime;
 
