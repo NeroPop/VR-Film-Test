@@ -6,10 +6,13 @@ using UnityEngine.Events;
 
 public class AnimationEventManager : MonoBehaviour
 {
+    //Shows current time
     [SerializeField] private float CurrentTime;
 
+    //Allows you to pause/resume time
     public bool isPaused = false;
 
+    //Shows current time in debug
     public bool DebugTime = false;
 
     [SerializeField] private float StartTime = 0;
@@ -17,10 +20,13 @@ public class AnimationEventManager : MonoBehaviour
     // Define the OnUpdate event
     public event Action<float> OnUpdate;
 
+    //UnityEvent when pause is toggled
+    [SerializeField] private UnityEvent TogglePause;
+
+    //List of Events to Trigger
     public List<GameObject> animationEvents;
 
-    [SerializeField] private UnityEvent TriggerPause;
-
+    //Checks if pause is Toggled
     private bool TriggeredPause = false;
 
     private void Start()
@@ -62,6 +68,13 @@ public class AnimationEventManager : MonoBehaviour
                 }
             }
 
+            if(TriggeredPause)
+            {
+                Debug.Log("Resumed");
+                TriggeredPause = false;
+                TogglePause.Invoke();
+            }
+
             // Remove events after iterating
           /*  foreach (var eventToRemove in eventsToRemove)
             {
@@ -71,7 +84,13 @@ public class AnimationEventManager : MonoBehaviour
 
         else
         {
-            Debug.Log("Paused");
+            if (!TriggeredPause)
+            {
+                Debug.Log("Paused");
+                TriggeredPause = true;
+                TogglePause.Invoke();
+            }
+           
         }
 
     }
