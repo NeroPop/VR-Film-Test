@@ -676,7 +676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 740891663066926374, guid: d95662c1f9171234e935f417314f3769, type: 3}
       propertyPath: StartTime
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 740891663066926374, guid: d95662c1f9171234e935f417314f3769, type: 3}
       propertyPath: animationEvents.Array.size

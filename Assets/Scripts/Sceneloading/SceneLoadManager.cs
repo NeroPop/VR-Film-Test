@@ -6,28 +6,39 @@ using UnityEngine.SceneManagement;
 public class SceneLoadManager : MonoBehaviour
 {
     [SerializeField]
-    int Level;
+    int PrevLevel = 0;
 
     [SerializeField]
-    [Tooltip("True = Load/ False = Unload")]
-    public bool loadUnloadToggle;
+    int CurLevel = 1;
 
-    // Start is called before the first frame update
-    /*void OnEnable()
-    {
-        if (loadUnloadToggle == true)
-            SceneManager.LoadScene(Level, LoadSceneMode.Additive);
-        else if (loadUnloadToggle == false)
-            SceneManager.UnloadSceneAsync(Level);
-    }*/
+    [SerializeField]
+    int NextLevel = 2;
 
-    public void LoadScene()
+
+    public void NextScene()
     {
-        SceneManager.LoadScene(Level, LoadSceneMode.Additive);
+        
+        SceneManager.LoadScene(NextLevel, LoadSceneMode.Additive);
+
+        if(CurLevel > 0)
+        {
+            SceneManager.UnloadSceneAsync(CurLevel);
+        }
+
+        NextLevel += 1;
+        PrevLevel += 1;
+        CurLevel += 1;
     }
 
-    public void UnloadScene()
+    public void PrevScene()
     {
-        SceneManager.UnloadSceneAsync(Level);
+        if (PrevLevel > 0)
+        {
+            SceneManager.LoadScene(PrevLevel, LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync(CurLevel);
+            NextLevel -= 1;
+            PrevLevel -= 1;
+            CurLevel -= 1;
+        }
     }
 }
