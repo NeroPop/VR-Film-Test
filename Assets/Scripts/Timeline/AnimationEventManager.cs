@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AnimationEventManager : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class AnimationEventManager : MonoBehaviour
 
     public List<GameObject> animationEvents;
 
+    [SerializeField] private UnityEvent TriggerPause;
+
+    private bool TriggeredPause = false;
 
     private void Start()
     {
@@ -57,12 +61,19 @@ public class AnimationEventManager : MonoBehaviour
                    // eventsToRemove.Add(animEventObject);
                 }
             }
+
             // Remove events after iterating
           /*  foreach (var eventToRemove in eventsToRemove)
             {
                 RemoveEvent(eventToRemove);
             } */
         }
+
+        else
+        {
+            Debug.Log("Paused");
+        }
+
     }
 
     public void PauseEvents()
