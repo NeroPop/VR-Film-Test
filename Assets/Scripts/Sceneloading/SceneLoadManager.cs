@@ -1,43 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoadManager : MonoBehaviour
 {
+    [Header("Set Start Scene")]
+    [Tooltip("Current Loaded Scene")]
     [SerializeField]
-    int CurLevel = 1;
+    int CurrentLevel = 1;
 
+    [Header("These values are set automatically when game starts")]
+
+    [Tooltip("Previous Loaded Scene")]
     [SerializeField]
     int PrevLevel = 0;
 
+    [Tooltip("Next Loaded Scene")]
     [SerializeField]
     int NextLevel = 2;
 
+    [Tooltip("Maximum number of Scenes")]
     [SerializeField]
     int MaxLevel;
 
     private void Start()
     {
         //Loads the current selected scene additvely on start and sets next/prev fields
-        if (CurLevel > 0)
+        if (CurrentLevel > 0)
         {
-            SceneManager.LoadScene(CurLevel, LoadSceneMode.Additive);
+            SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
 
-            PrevLevel = CurLevel - 1;
-            NextLevel = CurLevel + 1;
+            PrevLevel = CurrentLevel - 1;
+            NextLevel = CurrentLevel + 1;
         }
 
         //If the current scene is set to master then it will automatically start scene 1 and set the levels
         else
         {
-            CurLevel = 1;
+            CurrentLevel = 1;
             PrevLevel = 0;
             NextLevel = 2;
 
-            SceneManager.LoadScene(CurLevel, LoadSceneMode.Additive);
+            SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
         }
-        //Finds the number of scenes so we don't exceed it.
+
+        //Finds the number of scenes in the build so we don't exceed it.
         MaxLevel = SceneManager.sceneCountInBuildSettings;
     }
 
@@ -50,15 +59,15 @@ public class SceneLoadManager : MonoBehaviour
             SceneManager.LoadScene(NextLevel, LoadSceneMode.Additive);
 
             //Deletes the current scene if its not master
-            if (CurLevel > 0)
+            if (CurrentLevel > 0)
             {
-                SceneManager.UnloadSceneAsync(CurLevel);
+                SceneManager.UnloadSceneAsync(CurrentLevel);
             }
 
             //Updates the current, next and previous scene values.
             NextLevel += 1;
             PrevLevel += 1;
-            CurLevel += 1;
+            CurrentLevel += 1;
         }
     }
 
@@ -69,12 +78,12 @@ public class SceneLoadManager : MonoBehaviour
         {
             //Loads the previous scene and Unloads the current scene
             SceneManager.LoadScene(PrevLevel, LoadSceneMode.Additive);
-            SceneManager.UnloadSceneAsync(CurLevel);
+            SceneManager.UnloadSceneAsync(CurrentLevel);
 
             //Updates the current, next and previous scene values.
             NextLevel -= 1;
             PrevLevel -= 1;
-            CurLevel -= 1;
+            CurrentLevel -= 1;
         }
     }
 }
