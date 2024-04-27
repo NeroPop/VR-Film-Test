@@ -23,6 +23,11 @@ public class AnimationEventManager : MonoBehaviour
     {
         CurrentTime = StartTime;
         Debug.Log("Manager Started");
+
+        if (StartTime > 0)
+        {
+            Debug.Log("Start Time " + StartTime + " Seconds");
+        }
     }
 
     private void Update()
