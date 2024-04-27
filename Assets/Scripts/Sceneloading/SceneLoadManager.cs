@@ -14,6 +14,25 @@ public class SceneLoadManager : MonoBehaviour
     [SerializeField]
     int NextLevel = 2;
 
+    private void Start()
+    {
+        if (CurLevel > 0)
+        {
+            SceneManager.LoadScene(CurLevel, LoadSceneMode.Additive);
+
+            PrevLevel = CurLevel - 1;
+            NextLevel = CurLevel + 1;
+        }
+
+        else
+        {
+            CurLevel = 1;
+            PrevLevel = 0;
+            NextLevel = 2;
+
+            SceneManager.LoadScene(CurLevel, LoadSceneMode.Additive);
+        }
+    }
 
     public void NextScene()
     {
@@ -36,6 +55,7 @@ public class SceneLoadManager : MonoBehaviour
         {
             SceneManager.LoadScene(PrevLevel, LoadSceneMode.Additive);
             SceneManager.UnloadSceneAsync(CurLevel);
+
             NextLevel -= 1;
             PrevLevel -= 1;
             CurLevel -= 1;
