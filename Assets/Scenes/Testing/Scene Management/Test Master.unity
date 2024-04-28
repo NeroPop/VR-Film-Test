@@ -1333,10 +1333,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1109f485cacda409e79d15be252ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentLevel: 4
+  CurrentLevel: 1
   PrevLevel: 0
-  NextLevel: 2
-  MaxLevel: 7
+  NextLevel: 0
+  MaxLevel: 0
 --- !u!1 &1936113344
 GameObject:
   m_ObjectHideFlags: 0
