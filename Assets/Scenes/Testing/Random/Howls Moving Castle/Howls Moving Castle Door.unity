@@ -35741,6 +35741,7 @@ GameObject:
   - component: {fileID: 7409257456011819923}
   - component: {fileID: 2674477609078198421}
   - component: {fileID: 3043861661082434066}
+  - component: {fileID: 7409257456011819924}
   m_Layer: 0
   m_Name: pCube46
   m_TagString: Untagged
@@ -68624,6 +68625,27 @@ Transform:
   m_Father: {fileID: 4435980590786196139}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7409257456011819924
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3716640656841866684}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.22248931, y: 2.3150706, z: 0.21658644}
+  m_Center: {x: -0.11595201, y: -0.49301627, z: 0.000000048428774}
 --- !u!4 &7413036338428067213
 Transform:
   m_ObjectHideFlags: 0
@@ -81249,6 +81271,7 @@ GameObject:
   - component: {fileID: 1939075622951538012}
   - component: {fileID: 5395318753396843557}
   - component: {fileID: 3841921826428094409}
+  - component: {fileID: 8870871335079861105}
   m_Layer: 0
   m_Name: escalones
   m_TagString: Untagged
@@ -81256,6 +81279,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!64 &8870871335079861105
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8870871335079861104}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1197669670722972838, guid: 27fa1ef5fb758504abb3684cfdbaa618, type: 3}
 --- !u!33 &8879103688291556585
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -81597,6 +81642,7 @@ GameObject:
   - component: {fileID: 5879182998058355551}
   - component: {fileID: 867170140033433795}
   - component: {fileID: 8632699385152752842}
+  - component: {fileID: 8925714187507156209}
   m_Layer: 0
   m_Name: chimenea2
   m_TagString: Untagged
@@ -81604,6 +81650,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!64 &8925714187507156209
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8925714187507156208}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8711701676562894135, guid: 27fa1ef5fb758504abb3684cfdbaa618, type: 3}
 --- !u!1 &8926397973406264863
 GameObject:
   m_ObjectHideFlags: 0
