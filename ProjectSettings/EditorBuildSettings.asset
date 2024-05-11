@@ -5,23 +5,38 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/Testing/Howls Moving Castle/Door Scene switch.unity
+    guid: 1a9d5b781f260674ca3252a8a9ecd5f5
+  - enabled: 0
+    path: Assets/Scenes/Testing/Howls Moving Castle/World 1.unity
+    guid: 297d46a555e761f43857b072b9c657d0
+  - enabled: 0
+    path: Assets/Scenes/Testing/Howls Moving Castle/World 2.unity
+    guid: 04b6725949555fb4ba68a35c64f9d53e
+  - enabled: 0
+    path: Assets/Scenes/Testing/Howls Moving Castle/World 3.unity
+    guid: ab457749ba1e6814a898710979eaa475
+  - enabled: 0
+    path: Assets/Scenes/Testing/Howls Moving Castle/World 4.unity
+    guid: 414d77dbc26e7b34c8f6d13808cb7ef1
   - enabled: 1
-    path: Assets/Scenes/Test Master.unity
+    path: Assets/Scenes/Testing/Scene Management/Test Master.unity
     guid: f9d21de3a076129469ee0df91f99b21e
   - enabled: 1
-    path: Assets/Scenes/Test scene 1.unity
+    path: Assets/Scenes/Testing/Scene Management/Test scene 1.unity
     guid: b98d160bf3ab57648aece103e91a4e90
   - enabled: 1
-    path: Assets/Scenes/Test scene 2.unity
+    path: Assets/Scenes/Testing/Scene Management/Test scene 2.unity
     guid: 61c994f49bde52b42a85b25f465f6406
   - enabled: 1
-    path: Assets/Scenes/Test scene 3.unity
+    path: Assets/Scenes/Testing/Scene Management/Test scene 3.unity
     guid: 69601918c11af15449c4354e84adf61a
   - enabled: 1
-    path: Assets/Scenes/Test Scene 4.unity
+    path: Assets/Scenes/Testing/Scene Management/Test Scene 4.unity
     guid: 4319665f784156d45b78507cc10f59de
   - enabled: 1
-    path: Assets/Scenes/Test Scene 5.unity
+    path: Assets/Scenes/Testing/Scene Management/Test Scene 5.unity
     guid: f7d643cb5c8432046af2590749a74cb0
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 6ea24b938f63b5743bd85435a1548540, type: 2}

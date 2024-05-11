@@ -1333,8 +1333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1109f485cacda409e79d15be252ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentLevel: 1
+  StartLevel: 1
   PrevLevel: 0
+  CurrentLevel: 0
   NextLevel: 0
   MaxLevel: 0
 --- !u!1 &1936113344
