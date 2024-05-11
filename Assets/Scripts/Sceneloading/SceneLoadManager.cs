@@ -111,9 +111,11 @@ public class SceneLoadManager : MonoBehaviour
 
     public void Restart()
     {
+        //Loads the start scene and unloads the current scene
         SceneManager.LoadScene(StartLevel, LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync(CurrentLevel);
 
+        //Updates the current, next and previous values.
         CurrentLevel = StartLevel;
         PrevLevel = CurrentLevel - 1;
         NextLevel = CurrentLevel + 1;
