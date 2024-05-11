@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class SceneLoadManager : MonoBehaviour
 {
     [Header("Set Start Scene")]
-    [Tooltip("Current Loaded Scene")]
+    [Tooltip("First Scene to load on start")]
     [SerializeField]
     int StartLevel = 1;
 
