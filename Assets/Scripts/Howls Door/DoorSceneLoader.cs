@@ -7,49 +7,57 @@ using UnityEngine.SceneManagement;
 public class DoorSceneLoader : MonoBehaviour
 {
     [Header("Set Start Scene")]
-    [Tooltip("First Scene to load on start")]
-    [SerializeField]
-    int StartLevel = 1;
-
     [Tooltip("Current Loaded Scene")]
     [SerializeField]
     int CurrentLevel = 1;
 
     private void Start()
     {
-        CurrentLevel = StartLevel;
         SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
     }
 
     public void Level1()
     {
-        SceneManager.LoadScene(1, LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync(CurrentLevel);
+        if (CurrentLevel != 1)
+        {
+            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync(CurrentLevel);
+            CurrentLevel = 1;
+            Debug.Log("Loaded Level" + CurrentLevel);
+        }
 
-        CurrentLevel = 1;
     }
 
     public void Level2()
     {
-        SceneManager.LoadScene(2, LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync(CurrentLevel);
-
-        CurrentLevel = 2;
+        if (CurrentLevel != 2)
+        {
+            SceneManager.LoadScene(2, LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync(CurrentLevel);
+            CurrentLevel = 2;
+            Debug.Log("Loaded Level" + CurrentLevel);
+        }
     }
 
     public void Level3()
     {
-        SceneManager.LoadScene(3, LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync(CurrentLevel);
-
-        CurrentLevel = 3;
+        if (CurrentLevel != 3)
+        {
+            SceneManager.LoadScene(3, LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync(CurrentLevel);
+            CurrentLevel = 3;
+            Debug.Log("Loaded Level" + CurrentLevel);
+        }
     }
 
     public void Level4()
     {
-        SceneManager.LoadScene(4, LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync(CurrentLevel);
-
-        CurrentLevel = 4;
+        if (CurrentLevel != 4)
+        {
+            SceneManager.LoadScene(4, LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync(CurrentLevel);
+            CurrentLevel = 4;
+            Debug.Log("Loaded Level" + CurrentLevel);
+        }
     }
 }
