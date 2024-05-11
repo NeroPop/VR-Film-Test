@@ -54,6 +54,7 @@ public class SceneLoadManager : MonoBehaviour
                 CurrentLevel = MaxLevel -1;
                 PrevLevel = CurrentLevel - 1;
                 NextLevel = CurrentLevel + 1;
+                StartLevel = CurrentLevel;
 
                 SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
             }
@@ -65,6 +66,7 @@ public class SceneLoadManager : MonoBehaviour
             CurrentLevel = 1;
             PrevLevel = 0;
             NextLevel = 2;
+            StartLevel = 1;
 
             SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
         }
@@ -109,39 +111,11 @@ public class SceneLoadManager : MonoBehaviour
 
     public void Restart()
     {
-        //Sets the current level to the start level
+        SceneManager.LoadScene(StartLevel, LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync(CurrentLevel);
+
         CurrentLevel = StartLevel;
-
-        //Loads the current selected scene additvely on start and sets next/prev fields
-        if (CurrentLevel > 0)
-        {
-            if (CurrentLevel < MaxLevel)
-            {
-                SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
-
-                PrevLevel = CurrentLevel - 1;
-                NextLevel = CurrentLevel + 1;
-            }
-
-            //If the current level is set above the max level then it loads the last scene.
-            else
-            {
-                CurrentLevel = MaxLevel - 1;
-                PrevLevel = CurrentLevel - 1;
-                NextLevel = CurrentLevel + 1;
-
-                SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
-            }
-        }
-
-        //If the current scene is set to master then it will automatically start scene 1 and set the levels
-        else
-        {
-            CurrentLevel = 1;
-            PrevLevel = 0;
-            NextLevel = 2;
-
-            SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
-        }
+        PrevLevel = CurrentLevel - 1;
+        NextLevel = CurrentLevel + 1;
     }
 }
