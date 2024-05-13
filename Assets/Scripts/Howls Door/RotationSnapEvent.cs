@@ -34,22 +34,22 @@ public class RotationSnapEvent : MonoBehaviour
         if (step == 0)
         {
             Rot1.Invoke();
-            Debug.Log("Rot1");
+            //Debug.Log("Rot1");
         }
         else if (step == 1)
         {
             Rot2.Invoke();
-            Debug.Log("Rot2");
+           // Debug.Log("Rot2");
         }
         else if (step == 2)
         {
             Rot3.Invoke();
-            Debug.Log("Rot3");
+           // Debug.Log("Rot3");
         }
         else if (step == 3)
         {
             Rot4.Invoke();
-            Debug.Log("Rot4");
+           // Debug.Log("Rot4");
         }
 
     }
