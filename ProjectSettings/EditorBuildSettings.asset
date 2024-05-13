@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Testing/Howls Moving Castle/Door Scene switch.unity
-    guid: 1a9d5b781f260674ca3252a8a9ecd5f5
+    path: Assets/Scenes/Testing/Howls Moving Castle/Howls Moving Castle Door.unity
+    guid: e859a1d5b2cf3c14a917dd9452452e63
   - enabled: 1
     path: Assets/Scenes/Testing/Howls Moving Castle/World 1.unity
     guid: 297d46a555e761f43857b072b9c657d0
