@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 public class SceneLoadManager : MonoBehaviour
 {
     [Header("Set Start Scene")]
-    [Tooltip("Current Loaded Scene")]
+    [Tooltip("First Scene to load on start")]
     [SerializeField]
-    int CurrentLevel = 1;
+    int StartLevel = 1;
 
     [Header("These values are set automatically when game starts")]
 
@@ -17,9 +17,13 @@ public class SceneLoadManager : MonoBehaviour
     [SerializeField]
     int PrevLevel = 0;
 
+    [Tooltip("Current Loaded Scene")]
+    [SerializeField]
+    int CurrentLevel = 0;
+
     [Tooltip("Next Loaded Scene")]
     [SerializeField]
-    int NextLevel = 2;
+    int NextLevel = 0;
 
     [Tooltip("Maximum number of Scenes")]
     [SerializeField]
@@ -27,13 +31,33 @@ public class SceneLoadManager : MonoBehaviour
 
     private void Start()
     {
+        //Sets the current level to the start level
+        CurrentLevel = StartLevel;
+
+        //Finds the number of scenes in the build so we don't exceed it.
+        MaxLevel = SceneManager.sceneCountInBuildSettings;
+
         //Loads the current selected scene additvely on start and sets next/prev fields
         if (CurrentLevel > 0)
         {
-            SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
+            if (CurrentLevel < MaxLevel)
+            {
+                SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
 
-            PrevLevel = CurrentLevel - 1;
-            NextLevel = CurrentLevel + 1;
+                PrevLevel = CurrentLevel - 1;
+                NextLevel = CurrentLevel + 1;
+            }
+
+            //If the current level is set above the max level then it loads the last scene.
+            else
+            {
+                CurrentLevel = MaxLevel -1;
+                PrevLevel = CurrentLevel - 1;
+                NextLevel = CurrentLevel + 1;
+                StartLevel = CurrentLevel;
+
+                SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
+            }
         }
 
         //If the current scene is set to master then it will automatically start scene 1 and set the levels
@@ -42,12 +66,10 @@ public class SceneLoadManager : MonoBehaviour
             CurrentLevel = 1;
             PrevLevel = 0;
             NextLevel = 2;
+            StartLevel = 1;
 
             SceneManager.LoadScene(CurrentLevel, LoadSceneMode.Additive);
         }
-
-        //Finds the number of scenes in the build so we don't exceed it.
-        MaxLevel = SceneManager.sceneCountInBuildSettings;
     }
 
     public void NextScene()
@@ -85,5 +107,17 @@ public class SceneLoadManager : MonoBehaviour
             PrevLevel -= 1;
             CurrentLevel -= 1;
         }
+    }
+
+    public void Restart()
+    {
+        //Loads the start scene and unloads the current scene
+        SceneManager.LoadScene(StartLevel, LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync(CurrentLevel);
+
+        //Updates the current, next and previous values.
+        CurrentLevel = StartLevel;
+        PrevLevel = CurrentLevel - 1;
+        NextLevel = CurrentLevel + 1;
     }
 }
