@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AudioSource))]
@@ -90,6 +92,11 @@ public class MusicManager : MonoBehaviour
     private float ClipTime = 0;
     private int PrevTrack;
 
+    [HideInInspector]
+    public string TrackName;
+
+    public TMP_Text DisplayText;
+
     //Tells unity what onUnpdate is because it's dumb
     public event Action<float> OnUpdate;
     private void Start()
@@ -124,6 +131,9 @@ public class MusicManager : MonoBehaviour
         //Get's a reference for the AudioSource and displays in the console what song is playing, how long it is and where we are starting from
         AudioSource audio = GetComponent<AudioSource>();
         Debug.Log("Playing Track " + TrackNumber + " Song Length " + audio.clip.length.ToString("F2") + " Playing from " + CurrentTime.ToString("F2"));
+
+        //Displays the song name
+        DisplayText.text = audio.clip.name;
 
         //Figures out how long is left of the audio clip and then waits until it's finished before continuing
         ClipTime = audio.clip.length - CurrentTime;
