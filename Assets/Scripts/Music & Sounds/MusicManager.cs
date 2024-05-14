@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder.MeshOperations;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
@@ -17,9 +17,13 @@ public class MusicManager : MonoBehaviour
     private float TrackLength;
 
     [SerializeField]
+    private bool Shuffle = false;
+
+    [SerializeField]
     private bool Paused = false;
 
     private float ClipTime = 0;
+    private int PrevTrack;
 
 
     [Header("Soundtrack Audio")]
@@ -42,9 +46,18 @@ public class MusicManager : MonoBehaviour
     public event Action<float> OnUpdate;
     private void Start()
     {
+        if (!Shuffle)
+        {
+            TrackNumber = 1;
+            PlaySong();
+        }
 
-        TrackNumber = 1;
-        PlaySong();
+        else if (Shuffle)
+        {
+            TrackNumber = Random.Range(1, 8);
+            PlaySong();
+        }
+  
 
     }
 
@@ -68,20 +81,26 @@ public class MusicManager : MonoBehaviour
 
         if (!Paused)
         {
-            if (CurrentTime >= audio.clip.length)
+            if (!Shuffle)
             {
-                TrackNumber += 1;
-                PlaySong();
-                StopCoroutine(Playing());
-               // Debug.Log("CorrectLength");
+                if (CurrentTime >= audio.clip.length)
+                {
+                    PrevTrack = TrackNumber;
+                    TrackNumber += 1;
+                    PlaySong();
+                    StopCoroutine(Playing());
+                }
             }
-           /* else
+
+            else if (Shuffle)
             {
-                //I Don't know what's causing this but it seems to work anyway since adding it in?
-                ClipTime = audio.clip.length - CurrentTime;
-                yield return new WaitForSeconds(ClipTime);
-                Debug.Log("Something went wrong ClipTime is " + ClipTime + "Current time is " + CurrentTime);
-            } */
+                if (CurrentTime >= audio.clip.length)
+                {
+                    Shuffled();
+                    StopCoroutine(Playing());
+                }
+            }
+
         }
 
         else
@@ -161,18 +180,37 @@ public class MusicManager : MonoBehaviour
 
     public void Skip()
     {
-        StopCoroutine(Playing());
-        TrackNumber += 1;
-        PlaySong();
-       // Debug.Log("Skipped to Track " + TrackNumber);
+        if (!Shuffle)
+        {
+            StopCoroutine(Playing());
+            PrevTrack = TrackNumber;
+            TrackNumber += 1;
+            PlaySong();
+        }
+
+        else if (Shuffle)
+        {
+            StopCoroutine(Playing());
+            Shuffled();
+        }
     }
 
     public void Back()
     {
-        StopCoroutine(Playing());
-        TrackNumber -= 1;
-        PlaySong();
-       // Debug.Log("Returned to Track " + TrackNumber);
+        if (!Shuffle)
+        {
+            StopCoroutine(Playing());
+            TrackNumber -= 1;
+            PlaySong();
+        }
+
+        else if (Shuffle)
+        {
+            StopCoroutine(Playing());
+            TrackNumber = PrevTrack;
+            PlaySong();
+        }
+
     }
 
     public void Pause()
@@ -191,5 +229,34 @@ public class MusicManager : MonoBehaviour
         StartCoroutine(Playing());
         Paused = false;
         audio.UnPause();
+    }
+
+    private void Shuffled()
+    {
+        PrevTrack = TrackNumber;
+        TrackNumber = Random.Range(1, 8);
+
+        if (TrackNumber == PrevTrack)
+        {
+            Shuffled();
+        }
+
+        else if (TrackNumber != PrevTrack)
+        {
+            PlaySong();
+        }
+    }
+
+    public void ToggleShuffle()
+    {
+        if (!Shuffle)
+        {
+            Shuffle = true;
+        }
+
+        else if (Shuffle)
+        {
+            Shuffle = false;
+        }
     }
 }
