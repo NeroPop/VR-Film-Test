@@ -25,6 +25,45 @@ public class MusicManager : MonoBehaviour
     AudioClip Track6;
     [SerializeField]
     AudioClip Track7;
+    [SerializeField]
+    AudioClip Track8;
+    [SerializeField]
+    AudioClip Track9;
+    [SerializeField]
+    AudioClip Track10;
+    [SerializeField]
+    AudioClip Track11;
+    [SerializeField]
+    AudioClip Track12;
+    [SerializeField]
+    AudioClip Track13;
+    [SerializeField]
+    AudioClip Track14;
+    [SerializeField]
+    AudioClip Track15;
+    [SerializeField]
+    AudioClip Track16;
+    [SerializeField]
+    AudioClip Track17;
+    [SerializeField]
+    AudioClip Track18;
+    [SerializeField]
+    AudioClip Track19;
+    [SerializeField]
+    AudioClip Track20;
+    [SerializeField]
+    AudioClip Track21;
+    [SerializeField]
+    AudioClip Track22;
+    [SerializeField]
+    AudioClip Track23;
+    [SerializeField]
+    AudioClip Track24;
+    [SerializeField]
+    AudioClip Track25;
+    [SerializeField]
+    AudioClip Track26;
+
 
     [Header("Music Information")]
 
@@ -65,7 +104,7 @@ public class MusicManager : MonoBehaviour
 
         else if (Shuffle)
         {
-            TrackNumber = Random.Range(1, 8);
+            TrackNumber = Random.Range(1, 27);
             PlaySong();
         }
     }
@@ -195,6 +234,159 @@ public class MusicManager : MonoBehaviour
             audio.Play();
             StartCoroutine(Playing());
         }
+
+        else if (TrackNumber == 8)
+        {
+            audio.clip = Track8;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 9)
+        {
+            audio.clip = Track9;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 10)
+        {
+            audio.clip = Track10;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 11)
+        {
+            audio.clip = Track11;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 12)
+        {
+            audio.clip = Track12;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 13)
+        {
+            audio.clip = Track13;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 14)
+        {
+            audio.clip = Track14;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 15)
+        {
+            audio.clip = Track15;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 16)
+        {
+            audio.clip = Track16;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 17)
+        {
+            audio.clip = Track17;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 18)
+        {
+            audio.clip = Track18;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 19)
+        {
+            audio.clip = Track19;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 20)
+        {
+            audio.clip = Track20;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 21)
+        {
+            audio.clip = Track21;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 22)
+        {
+            audio.clip = Track22;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 23)
+        {
+            audio.clip = Track23;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 24)
+        {
+            audio.clip = Track24;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 25)
+        {
+            audio.clip = Track25;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
+        else if (TrackNumber == 26)
+        {
+            audio.clip = Track26;
+            TrackLength = audio.clip.length;
+            CurrentTime = 0;
+            audio.Play();
+            StartCoroutine(Playing());
+        }
     }
 
     public void Skip()
@@ -263,7 +455,7 @@ public class MusicManager : MonoBehaviour
     {
         //Saves the current track as the previous track before randomising the current track
         PrevTrack = TrackNumber;
-        TrackNumber = Random.Range(1, 8);
+        TrackNumber = Random.Range(1, 27);
 
         //Checks to make sure you can't hear the same song twice in a row
         if (TrackNumber == PrevTrack)
