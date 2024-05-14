@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
 [RequireComponent(typeof(AudioSource))]
 public class MusicManager : MonoBehaviour
@@ -11,6 +12,15 @@ public class MusicManager : MonoBehaviour
 
     [SerializeField]
     private float CurrentTime = 0;
+
+    [SerializeField]
+    private bool Paused = false;
+
+    [SerializeField]
+    private float ClipTime = 0;
+
+    private float Pausedtime;
+    private bool Unpaused = false;
 
     [Header("Soundtrack Audio")]
     [SerializeField]
@@ -31,7 +41,6 @@ public class MusicManager : MonoBehaviour
     public event Action<float> OnUpdate;
     private void Start()
     {
-       // AudioSource audio = GetComponent<AudioSource>();
 
         TrackNumber = 1;
         PlaySong();
@@ -40,22 +49,44 @@ public class MusicManager : MonoBehaviour
 
     private void Update()
     {
-        OnUpdate?.Invoke(Time.deltaTime);
-
-        //Sets the current time when not paused.
-        CurrentTime = CurrentTime + Time.deltaTime;
+        if (!Paused)
+        {
+            OnUpdate?.Invoke(Time.deltaTime);
+            CurrentTime = CurrentTime + Time.deltaTime;
+        }
     }
 
     IEnumerator Playing()
     {
         AudioSource audio = GetComponent<AudioSource>();
 
-        CurrentTime = 0;
         Debug.Log("Playing Track " + TrackNumber + " Clip Length " + audio.clip.length);
-        yield return new WaitForSeconds(audio.clip.length);
-        TrackNumber += 1;
-        PlaySong();
-        StopCoroutine(Playing());
+
+        ClipTime = audio.clip.length - CurrentTime;
+        yield return new WaitForSeconds(ClipTime);
+
+        if (!Paused)
+        {
+            if (CurrentTime >= audio.clip.length)
+            {
+                TrackNumber += 1;
+                PlaySong();
+                StopCoroutine(Playing());
+                Debug.Log("CorrectLength");
+            }
+            else
+            {
+                ClipTime = audio.clip.length - CurrentTime;
+                yield return new WaitForSeconds(ClipTime);
+                Debug.Log("Something went wrong ClipTime is " + ClipTime + "Current time is " + CurrentTime);
+            }
+        }
+
+        else
+        {
+            Debug.Log("Paused at " + CurrentTime);
+        }
+
     }
 
     public void PlaySong()
@@ -65,6 +96,7 @@ public class MusicManager : MonoBehaviour
         if (TrackNumber == 1)
         {
             audio.clip = Track1;
+            CurrentTime = 0;
             audio.Play();
             StartCoroutine(Playing());
         }
@@ -72,6 +104,7 @@ public class MusicManager : MonoBehaviour
         else if (TrackNumber == 2)
         {
             audio.clip = Track2;
+            CurrentTime = 0;
             audio.Play();
             StartCoroutine(Playing());
         }
@@ -79,6 +112,7 @@ public class MusicManager : MonoBehaviour
         else if (TrackNumber == 3)
         {
             audio.clip = Track3;
+            CurrentTime = 0;
             audio.Play();
             StartCoroutine(Playing());
         }
@@ -86,6 +120,7 @@ public class MusicManager : MonoBehaviour
         else if (TrackNumber == 4)
         {
             audio.clip = Track4;
+            CurrentTime = 0;
             audio.Play();
             StartCoroutine(Playing());
         }
@@ -93,6 +128,7 @@ public class MusicManager : MonoBehaviour
         else if (TrackNumber == 5)
         {
             audio.clip = Track5;
+            CurrentTime = 0;
             audio.Play();
             StartCoroutine(Playing());
         }
@@ -100,6 +136,7 @@ public class MusicManager : MonoBehaviour
         else if (TrackNumber == 6)
         {
             audio.clip = Track6;
+            CurrentTime = 0;
             audio.Play();
             StartCoroutine(Playing());
         }
@@ -107,6 +144,7 @@ public class MusicManager : MonoBehaviour
         else if (TrackNumber == 7)
         {
             audio.clip = Track7;
+            CurrentTime = 0;
             audio.Play();
             StartCoroutine(Playing());
         }
@@ -117,7 +155,7 @@ public class MusicManager : MonoBehaviour
         StopCoroutine(Playing());
         TrackNumber += 1;
         PlaySong();
-        Debug.Log("Skipped to Track " + TrackNumber);
+       // Debug.Log("Skipped to Track " + TrackNumber);
     }
 
     public void Back()
@@ -125,6 +163,24 @@ public class MusicManager : MonoBehaviour
         StopCoroutine(Playing());
         TrackNumber -= 1;
         PlaySong();
-        Debug.Log("Returned to Track " + TrackNumber);
+       // Debug.Log("Returned to Track " + TrackNumber);
+    }
+
+    public void Pause()
+    {
+        AudioSource audio = GetComponent<AudioSource>();
+
+        StopCoroutine(Playing());
+        Paused = true;
+        audio.Pause();
+    }
+
+    public void Resume()
+    {
+        AudioSource audio = GetComponent<AudioSource>();
+
+        StartCoroutine(Playing());
+        Paused = false;
+        audio.UnPause();
     }
 }
