@@ -172,6 +172,13 @@ public class MusicManager : MonoBehaviour
 
         //Checks the current track number and Plays the relevant track
         //Also resets the time to 0 and gets the Length of the track
+        //If the track number is below 1 or above 26 it sets the track number back to 1
+        if (TrackNumber <= 0)
+        {
+            TrackNumber = 1;
+            PlaySong();
+        }
+        
         if (TrackNumber == 1)
         {
             audio.clip = Track1;
@@ -386,6 +393,11 @@ public class MusicManager : MonoBehaviour
             CurrentTime = 0;
             audio.Play();
             StartCoroutine(Playing());
+        }
+        else if (TrackNumber >= 27)
+        {
+            TrackNumber = 1;
+            PlaySong();
         }
     }
 
