@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Random = UnityEngine.Random;
+using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Primitives;
 
 [RequireComponent(typeof(AudioSource))]
 
@@ -66,9 +67,16 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     AudioClip Track26;
 
+    [Header("Display Texts")]
+
+    //Texts to be displayed in UI
+    public TMP_Text DisplayName;
+    public TMP_Text DisplayTime;
+    public Slider DisplayProgress;
 
     [Header("Music Information")]
 
+    //Displays the music informaiton in the inspector. All either read only or private
     [ReadOnly]
     [SerializeField]
     int TrackNumber = 1;
@@ -89,13 +97,13 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     private bool Paused = false;
 
+    //Only used in the script
     private float ClipTime = 0;
     private int PrevTrack;
+    public float displayseconds;
+    public float displayminutes;
+    public float progress;
 
-    [HideInInspector]
-    public string TrackName;
-
-    public TMP_Text DisplayText;
 
     //Tells unity what onUnpdate is because it's dumb
     public event Action<float> OnUpdate;
@@ -123,6 +131,33 @@ public class MusicManager : MonoBehaviour
         {
             OnUpdate?.Invoke(Time.deltaTime);
             CurrentTime = CurrentTime + Time.deltaTime;
+            progress = CurrentTime / TrackLength * 100;
+
+            //Displays the current progress
+            DisplayProgress.value = progress;
+
+            if (displayseconds <= 59.5)
+            {
+                displayseconds = displayseconds + Time.deltaTime;
+            }
+
+            else if (displayseconds >= 59.5)
+            {
+                displayseconds = 0;
+                displayminutes += 1;
+            }
+
+            //Displays the time in minutes and seconds
+
+            if (displayseconds < 9.5)
+            {
+                DisplayTime.text = displayminutes.ToString("F0") + " : 0" + displayseconds.ToString("F0");
+            }
+
+            else if (displayseconds > 9.5)
+            {
+                DisplayTime.text = displayminutes.ToString("F0") + " : " + displayseconds.ToString("F0");
+            }
         }
     }
 
@@ -133,7 +168,11 @@ public class MusicManager : MonoBehaviour
         Debug.Log("Playing Track " + TrackNumber + " Song Length " + audio.clip.length.ToString("F2") + " Playing from " + CurrentTime.ToString("F2"));
 
         //Displays the song name
-        DisplayText.text = audio.clip.name;
+        DisplayName.text = audio.clip.name;
+
+        //resets the displayed time
+        displayseconds = 0;
+        displayminutes = 0;
 
         //Figures out how long is left of the audio clip and then waits until it's finished before continuing
         ClipTime = audio.clip.length - CurrentTime;
