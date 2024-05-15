@@ -101,12 +101,12 @@ public class MusicManager : MonoBehaviour
     //Only used in the script
     private float ClipTime = 0;
     private int PrevTrack;
-    public float displayseconds;
-    public float displayminutes;
-    public float progress;
-    public float remaining;
-    public float remainingseconds;
-    public float remainingminutes;
+    private float displayseconds;
+    private float displayminutes;
+    private float progress;
+    private float remaining;
+    private float remainingseconds;
+    private float remainingminutes;
 
 
     //Tells unity what onUnpdate is because it's dumb
@@ -222,14 +222,7 @@ public class MusicManager : MonoBehaviour
                     StopCoroutine(Playing());
                 }
             }
-
         }
- 
-        else
-        {
-            //Insert here what happens when the music has been paused for longer than the song. Nothing needed for pause to work as intended
-        }
-
     }
 
     public void PlaySong()
@@ -504,7 +497,6 @@ public class MusicManager : MonoBehaviour
             TrackNumber = PrevTrack;
             PlaySong();
         }
-
     }
 
     public void Pause()
