@@ -67,11 +67,12 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     AudioClip Track26;
 
-    [Header("Display Texts")]
+    [Header("Display Elements")]
 
     //Texts to be displayed in UI
     public TMP_Text DisplayName;
     public TMP_Text DisplayTime;
+    public TMP_Text DisplayRemaining;
     public Slider DisplayProgress;
 
     [Header("Music Information")]
@@ -103,6 +104,9 @@ public class MusicManager : MonoBehaviour
     public float displayseconds;
     public float displayminutes;
     public float progress;
+    public float remaining;
+    public float remainingseconds;
+    public float remainingminutes;
 
 
     //Tells unity what onUnpdate is because it's dumb
@@ -126,21 +130,27 @@ public class MusicManager : MonoBehaviour
 
     private void Update()
     {
-        //Keeps track of time so we know how far we are into the song
+        //Checks if paused
         if (!Paused)
         {
+            //Keeps track of time so we know how far we are into the song
             OnUpdate?.Invoke(Time.deltaTime);
             CurrentTime = CurrentTime + Time.deltaTime;
             progress = CurrentTime / TrackLength * 100;
 
+            //Calculates the time we have remaining
+            remaining = TrackLength - CurrentTime;
+            remainingminutes = ((int)remaining) / 60;
+            remainingseconds = remaining - (remainingminutes * 60);
+
             //Displays the current progress
             DisplayProgress.value = progress;
 
+            //Calculates minutes and seconds for time taken
             if (displayseconds <= 59.5)
             {
                 displayseconds = displayseconds + Time.deltaTime;
             }
-
             else if (displayseconds >= 59.5)
             {
                 displayseconds = 0;
@@ -148,15 +158,23 @@ public class MusicManager : MonoBehaviour
             }
 
             //Displays the time in minutes and seconds
-
             if (displayseconds < 9.5)
             {
                 DisplayTime.text = displayminutes.ToString("F0") + " : 0" + displayseconds.ToString("F0");
             }
-
             else if (displayseconds > 9.5)
             {
                 DisplayTime.text = displayminutes.ToString("F0") + " : " + displayseconds.ToString("F0");
+            }
+
+            //Displays the time remaining in minutes and seconds
+            if (remainingseconds < 9.5)
+            {
+                DisplayRemaining.text = "-" + remainingminutes.ToString("F0") + " : 0" + remainingseconds.ToString("F0");
+            }
+            else if (remainingseconds > 9.5)
+            {
+                DisplayRemaining.text = "-" + remainingminutes.ToString("F0") + " : " + remainingseconds.ToString("F0");
             }
         }
     }
