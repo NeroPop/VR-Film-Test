@@ -152,6 +152,11 @@ public class MusicManager : MonoBehaviour
             //Displays the current progress
             DisplayProgress.value = progress;
 
+            if (!isDragging)
+            {
+                audioSlider.value = CurrentTime;
+            }
+
             //Calculates minutes and seconds for time taken
             if (displayseconds <= 59.5)
             {
@@ -193,10 +198,6 @@ public class MusicManager : MonoBehaviour
 
         //Displays the song name
         DisplayName.text = audio.clip.name;
-
-        //resets the displayed time
-        displayseconds = 0;
-        displayminutes = 0;
 
         // Set the slider's max value to the length of the audio clip
         audioSlider.maxValue = audio.clip.length;
@@ -249,6 +250,10 @@ public class MusicManager : MonoBehaviour
 
         //Sets the audio slider back to 0
         audioSlider.value = 0;
+
+        //resets the displayed time
+        displayseconds = 0;
+        displayminutes = 0;
 
         //Checks the current track number and Plays the relevant track
         //Also resets the time to 0 and gets the Length of the track
@@ -590,9 +595,16 @@ public class MusicManager : MonoBehaviour
         //Get's a reference for the AudioSource
         AudioSource audio = GetComponent<AudioSource>();
 
-        // Update the audio playback time to match the slider value
-        audio.time = value;
-        CurrentTime = value;
-        ClipTime = audio.clip.length - CurrentTime;
+        if (isDragging)
+        {
+            // Update the audio playback time to match the slider value
+            audio.time = value;
+            CurrentTime = value;
+            ClipTime = audio.clip.length - CurrentTime;
+            displayseconds = displayseconds + CurrentTime;
+
+            displayminutes = ((int)displayseconds) / 60;
+            displayseconds = displayseconds - (displayminutes * 60);
+        }
     }
 }
