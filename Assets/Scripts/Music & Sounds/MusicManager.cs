@@ -74,6 +74,7 @@ public class MusicManager : MonoBehaviour
     public TMP_Text DisplayTime;
     public TMP_Text DisplayRemaining;
     public Slider DisplayProgress;
+    public Slider audioSlider;
 
     [Header("Music Information")]
 
@@ -107,6 +108,8 @@ public class MusicManager : MonoBehaviour
     private float remaining;
     private float remainingseconds;
     private float remainingminutes;
+    private float sliderprogress;
+    private bool isDragging = false;
 
 
     //Tells unity what onUnpdate is because it's dumb
@@ -126,6 +129,9 @@ public class MusicManager : MonoBehaviour
             TrackNumber = Random.Range(1, 27);
             PlaySong();
         }
+
+        // Add listeners to handle the slider events
+        audioSlider.onValueChanged.AddListener(OnSliderValueChanged);
     }
 
     private void Update()
@@ -192,36 +198,47 @@ public class MusicManager : MonoBehaviour
         displayseconds = 0;
         displayminutes = 0;
 
+        // Set the slider's max value to the length of the audio clip
+        audioSlider.maxValue = audio.clip.length;
+
+        // Add listeners to handle the slider events
+        audioSlider.onValueChanged.AddListener(OnSliderValueChanged);
+
         //Figures out how long is left of the audio clip and then waits until it's finished before continuing
         ClipTime = audio.clip.length - CurrentTime;
+
         yield return new WaitForSeconds(ClipTime);
 
         //Checks if the music is paused
         if (!Paused)
         {
-            //If the music isn't shuffled it saves the current track (incase it gets put on shuffle) and Increases the track number before beggining the next track
-            //Also checks that the clip has definitely finished playing before starting the next song
-            if (!Shuffle)
-            {
-                if (CurrentTime >= audio.clip.length)
+           // if (!isDragging)
+            //{
+                //If the music isn't shuffled it saves the current track (incase it gets put on shuffle) and Increases the track number before beggining the next track
+                //Also checks that the clip has definitely finished playing before starting the next song
+                if (!Shuffle)
                 {
-                    PrevTrack = TrackNumber;
-                    TrackNumber += 1;
-                    PlaySong();
-                    StopCoroutine(Playing());
+                    if (CurrentTime >= audio.clip.length)
+                    {
+                        PrevTrack = TrackNumber;
+                        TrackNumber += 1;
+                        PlaySong();
+                        StopCoroutine(Playing());
+                    }
                 }
-            }
 
-            //If the music is on shuffle, it calls the Shuffled function which saves the current Track as the previous one and plays a random track next
-            //Also checks that the clip has definitely finished playing before starting the next song
-            else if (Shuffle)
-            {
-                if (CurrentTime >= audio.clip.length)
+                //If the music is on shuffle, it calls the Shuffled function which saves the current Track as the previous one and plays a random track next
+                //Also checks that the clip has definitely finished playing before starting the next song
+                else if (Shuffle)
                 {
-                    Shuffled();
-                    StopCoroutine(Playing());
+                    if (CurrentTime >= audio.clip.length)
+                    {
+                        Shuffled();
+                        StopCoroutine(Playing());
+                    }
                 }
-            }
+
+           // }
         }
     }
 
@@ -229,6 +246,9 @@ public class MusicManager : MonoBehaviour
     {
         //Get's a reference for the AudioSource
         AudioSource audio = GetComponent<AudioSource>();
+
+        //Sets the audio slider back to 0
+        audioSlider.value = 0;
 
         //Checks the current track number and Plays the relevant track
         //Also resets the time to 0 and gets the Length of the track
@@ -499,6 +519,17 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    public void OnPointerDown()
+    {
+        isDragging = true;
+        Pause();
+    }
+
+    public void OnPointerUp()
+    {
+        isDragging = false;
+        Resume();
+    }
     public void Pause()
     {
         //Gets a reference to the audio source
@@ -552,5 +583,16 @@ public class MusicManager : MonoBehaviour
         {
             Shuffle = false;
         }
+    }
+
+    public void OnSliderValueChanged(float value)
+    {
+        //Get's a reference for the AudioSource
+        AudioSource audio = GetComponent<AudioSource>();
+
+        // Update the audio playback time to match the slider value
+        audio.time = value;
+        CurrentTime = value;
+        ClipTime = audio.clip.length - CurrentTime;
     }
 }
