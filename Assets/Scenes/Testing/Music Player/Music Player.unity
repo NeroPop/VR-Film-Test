@@ -544,6 +544,8 @@ MonoBehaviour:
   DisplayRemaining: {fileID: 1119035071}
   DisplayProgress: {fileID: 1517769497}
   audioSlider: {fileID: 2147050966}
+  PauseButton: {fileID: 418677687}
+  ResumeButton: {fileID: 1196028424}
   TrackNumber: 1
   CurrentTime: 0
   TrackLength: 0
@@ -1069,7 +1071,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -2824,7 +2826,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

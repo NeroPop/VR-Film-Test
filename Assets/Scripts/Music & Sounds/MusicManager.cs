@@ -75,6 +75,8 @@ public class MusicManager : MonoBehaviour
     public TMP_Text DisplayRemaining;
     public Slider DisplayProgress;
     public Slider audioSlider;
+    public GameObject PauseButton;
+    public GameObject ResumeButton;
 
     [Header("Music Information")]
 
@@ -108,7 +110,7 @@ public class MusicManager : MonoBehaviour
     private float remaining;
     private float remainingseconds;
     private float remainingminutes;
-    private float sliderprogress;
+    private bool dragged = false;
     private bool isDragging = false;
 
 
@@ -213,33 +215,29 @@ public class MusicManager : MonoBehaviour
         //Checks if the music is paused
         if (!Paused)
         {
-           // if (!isDragging)
-            //{
-                //If the music isn't shuffled it saves the current track (incase it gets put on shuffle) and Increases the track number before beggining the next track
-                //Also checks that the clip has definitely finished playing before starting the next song
-                if (!Shuffle)
+            //If the music isn't shuffled it saves the current track (incase it gets put on shuffle) and Increases the track number before beggining the next track
+            //Also checks that the clip has definitely finished playing before starting the next song
+            if (!Shuffle)
+            {
+                if (CurrentTime >= audio.clip.length)
                 {
-                    if (CurrentTime >= audio.clip.length)
-                    {
-                        PrevTrack = TrackNumber;
-                        TrackNumber += 1;
-                        PlaySong();
-                        StopCoroutine(Playing());
-                    }
+                    PrevTrack = TrackNumber;
+                    TrackNumber += 1;
+                    PlaySong();
+                    StopCoroutine(Playing());
                 }
+            }
 
-                //If the music is on shuffle, it calls the Shuffled function which saves the current Track as the previous one and plays a random track next
-                //Also checks that the clip has definitely finished playing before starting the next song
-                else if (Shuffle)
+            //If the music is on shuffle, it calls the Shuffled function which saves the current Track as the previous one and plays a random track next
+            //Also checks that the clip has definitely finished playing before starting the next song
+            else if (Shuffle)
+            {
+                if (CurrentTime >= audio.clip.length)
                 {
-                    if (CurrentTime >= audio.clip.length)
-                    {
-                        Shuffled();
-                        StopCoroutine(Playing());
-                    }
+                    Shuffled();
+                    StopCoroutine(Playing());
                 }
-
-           // }
+            }
         }
     }
 
@@ -528,13 +526,16 @@ public class MusicManager : MonoBehaviour
     {
         isDragging = true;
         Pause();
+        dragged = false;
     }
 
     public void OnPointerUp()
     {
         isDragging = false;
         Resume();
+        dragged = true;
     }
+
     public void Pause()
     {
         //Gets a reference to the audio source
@@ -545,6 +546,9 @@ public class MusicManager : MonoBehaviour
         Paused = true;
         audio.Pause();
         Debug.Log("Paused at " + CurrentTime.ToString("F2"));
+
+        PauseButton.SetActive(false);
+        ResumeButton.SetActive(true);
     }
 
     public void Resume()
@@ -556,6 +560,9 @@ public class MusicManager : MonoBehaviour
         StartCoroutine(Playing());
         Paused = false;
         audio.UnPause();
+
+        PauseButton.SetActive(true);
+        ResumeButton.SetActive(false);
     }
 
     private void Shuffled()
@@ -600,11 +607,13 @@ public class MusicManager : MonoBehaviour
             // Update the audio playback time to match the slider value
             audio.time = value;
             CurrentTime = value;
-            ClipTime = audio.clip.length - CurrentTime;
-            displayseconds = displayseconds + CurrentTime;
+
+            displayseconds = CurrentTime;
 
             displayminutes = ((int)displayseconds) / 60;
             displayseconds = displayseconds - (displayminutes * 60);
+
+            dragged = true;
         }
     }
 }
