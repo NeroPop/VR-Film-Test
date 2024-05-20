@@ -513,32 +513,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77bee0cf34f0cd14ea27713544c66bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Track1: {fileID: 8300000, guid: b72ec62f47ae4b940b473fbde80a9b80, type: 3}
-  Track2: {fileID: 8300000, guid: 8bcf0f4e8691b3a429bf0b389fea51ad, type: 3}
-  Track3: {fileID: 8300000, guid: 303095d751a47684e9c56963ca67bf93, type: 3}
-  Track4: {fileID: 8300000, guid: df6fedd6070f7a84aac3b9f0cdd81d4a, type: 3}
-  Track5: {fileID: 8300000, guid: 5c728a9e7205c9b4fa3518161167dca7, type: 3}
-  Track6: {fileID: 8300000, guid: 7d7f315f9beeec54892685a62a81743e, type: 3}
-  Track7: {fileID: 8300000, guid: 4c412a7a82658904f8a2f2ce7c8c7093, type: 3}
-  Track8: {fileID: 8300000, guid: 72c57fd6550be0345b579a6a1749af82, type: 3}
-  Track9: {fileID: 8300000, guid: 69b9c7d516dea7c4d94d8e90ab10a242, type: 3}
-  Track10: {fileID: 8300000, guid: 53fde3a8e43e89b49857e8e9fdf95023, type: 3}
-  Track11: {fileID: 8300000, guid: 478f4229a4c8e834fa01b597d4a8c283, type: 3}
-  Track12: {fileID: 8300000, guid: 9fb1f58d515d12147b08d7901458fbf9, type: 3}
-  Track13: {fileID: 8300000, guid: 33168bc0351cba84b8934316e67bc3e7, type: 3}
-  Track14: {fileID: 8300000, guid: 722f21a6d7fcca74c8ce31842690c223, type: 3}
-  Track15: {fileID: 8300000, guid: e9702a60ee08a6b4e8acc7d9d35be308, type: 3}
-  Track16: {fileID: 8300000, guid: d318bd3c9bfea1940b7d5864af7f95ce, type: 3}
-  Track17: {fileID: 8300000, guid: 1c900d74994004f4aa4c4f3b0e2a457a, type: 3}
-  Track18: {fileID: 8300000, guid: 3939aef1c7ac8e24fbe938539ea1e098, type: 3}
-  Track19: {fileID: 8300000, guid: fd76409ff2ac78b44a324dff8a786db6, type: 3}
-  Track20: {fileID: 8300000, guid: 02f1a9d247212af4da95406b4eb53096, type: 3}
-  Track21: {fileID: 8300000, guid: fdf7a913a2ec5a04d88b6176d103849e, type: 3}
-  Track22: {fileID: 8300000, guid: 513b4b0588409aa479d9202003a734ac, type: 3}
-  Track23: {fileID: 8300000, guid: 747c4f9f9a05a8644a6068007df0bfac, type: 3}
-  Track24: {fileID: 8300000, guid: 8c3accebfcb213e4a8b439342cb9dbd9, type: 3}
-  Track25: {fileID: 8300000, guid: 01691b198e916b94b86f7f2c57ee00e8, type: 3}
-  Track26: {fileID: 8300000, guid: 3390c18e486f2864fb769a5b073bce31, type: 3}
+  Tracks:
+  - {fileID: 8300000, guid: b72ec62f47ae4b940b473fbde80a9b80, type: 3}
+  - {fileID: 8300000, guid: 8bcf0f4e8691b3a429bf0b389fea51ad, type: 3}
+  - {fileID: 8300000, guid: 303095d751a47684e9c56963ca67bf93, type: 3}
+  - {fileID: 8300000, guid: df6fedd6070f7a84aac3b9f0cdd81d4a, type: 3}
+  - {fileID: 8300000, guid: 5c728a9e7205c9b4fa3518161167dca7, type: 3}
+  - {fileID: 8300000, guid: 7d7f315f9beeec54892685a62a81743e, type: 3}
+  - {fileID: 8300000, guid: 4c412a7a82658904f8a2f2ce7c8c7093, type: 3}
+  - {fileID: 8300000, guid: 72c57fd6550be0345b579a6a1749af82, type: 3}
+  - {fileID: 8300000, guid: 69b9c7d516dea7c4d94d8e90ab10a242, type: 3}
+  - {fileID: 8300000, guid: 53fde3a8e43e89b49857e8e9fdf95023, type: 3}
+  - {fileID: 8300000, guid: 478f4229a4c8e834fa01b597d4a8c283, type: 3}
+  - {fileID: 8300000, guid: 9fb1f58d515d12147b08d7901458fbf9, type: 3}
+  - {fileID: 8300000, guid: 33168bc0351cba84b8934316e67bc3e7, type: 3}
+  - {fileID: 8300000, guid: 722f21a6d7fcca74c8ce31842690c223, type: 3}
+  - {fileID: 8300000, guid: e9702a60ee08a6b4e8acc7d9d35be308, type: 3}
+  - {fileID: 8300000, guid: d318bd3c9bfea1940b7d5864af7f95ce, type: 3}
+  - {fileID: 8300000, guid: 1c900d74994004f4aa4c4f3b0e2a457a, type: 3}
+  - {fileID: 8300000, guid: 3939aef1c7ac8e24fbe938539ea1e098, type: 3}
+  - {fileID: 8300000, guid: fd76409ff2ac78b44a324dff8a786db6, type: 3}
+  - {fileID: 8300000, guid: 02f1a9d247212af4da95406b4eb53096, type: 3}
+  - {fileID: 8300000, guid: fdf7a913a2ec5a04d88b6176d103849e, type: 3}
+  - {fileID: 8300000, guid: 513b4b0588409aa479d9202003a734ac, type: 3}
+  - {fileID: 8300000, guid: 747c4f9f9a05a8644a6068007df0bfac, type: 3}
+  - {fileID: 8300000, guid: 8c3accebfcb213e4a8b439342cb9dbd9, type: 3}
+  - {fileID: 8300000, guid: 01691b198e916b94b86f7f2c57ee00e8, type: 3}
+  - {fileID: 8300000, guid: 3390c18e486f2864fb769a5b073bce31, type: 3}
   DisplayName: {fileID: 604798939}
   DisplayTime: {fileID: 362193600}
   DisplayRemaining: {fileID: 1119035071}
@@ -551,6 +552,7 @@ MonoBehaviour:
   TrackLength: 0
   Shuffle: 0
   Paused: 0
+  isDragging: 0
 --- !u!82 &268611728
 AudioSource:
   m_ObjectHideFlags: 0

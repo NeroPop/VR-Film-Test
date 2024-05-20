@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Random = UnityEngine.Random;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(AudioSource))]
 
@@ -12,8 +13,11 @@ public class MusicManager : MonoBehaviour
 {
     [Header("Soundtrack Audio")]
 
-    //Audio to be used in the playlist
     [SerializeField]
+    private AudioClip[] Tracks;
+
+    //Audio to be used in the playlist
+  /*  [SerializeField]
     AudioClip Track1;
     [SerializeField]
     AudioClip Track2;
@@ -64,7 +68,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     AudioClip Track25;
     [SerializeField]
-    AudioClip Track26;
+    AudioClip Track26; */
 
     [Header("Display Elements")]
 
@@ -100,6 +104,10 @@ public class MusicManager : MonoBehaviour
     [SerializeField]
     private bool Paused = false;
 
+    [ReadOnly]
+    [SerializeField]
+    private bool isDragging = false;
+
     //Only used in the script
     private float ClipTime = 0;
     private int PrevTrack;
@@ -110,7 +118,6 @@ public class MusicManager : MonoBehaviour
     private float remainingseconds;
     private float remainingminutes;
     private bool dragged = false;
-    private bool isDragging = false;
 
 
     //Tells unity what onUnpdate is because it's dumb
@@ -121,13 +128,13 @@ public class MusicManager : MonoBehaviour
         //If it's shuffled then the track is random, if not then it sets the track to 1
         if (!Shuffle)
         {
-            TrackNumber = 1;
+            TrackNumber = 0;
             PlaySong();
         }
 
         else if (Shuffle)
         {
-            TrackNumber = Random.Range(1, 27);
+            TrackNumber = Random.Range(0, Tracks.Length);
             PlaySong();
         }
 
@@ -136,7 +143,7 @@ public class MusicManager : MonoBehaviour
     }
 
     private void Update()
-    {
+    { /*
         //Checks if paused
         if (!Paused)
         {
@@ -188,14 +195,96 @@ public class MusicManager : MonoBehaviour
             {
                 DisplayRemaining.text = "-" + remainingminutes.ToString("F0") + " : " + remainingseconds.ToString("F0");
             }
+        }*/
+        AudioSource audio = GetComponent<AudioSource>();
+        TrackLength = audio.clip.length;
+
+        if (!Paused)
+        {
+            OnUpdate?.Invoke(Time.deltaTime);
+            CurrentTime += Time.deltaTime;
+
+            float progress = CurrentTime / TrackLength;
+            DisplayProgress.value = progress;
+
+            if (!isDragging)
+            {
+                audioSlider.value = CurrentTime;
+            }
         }
+        DisplayRemaining.text = "-" + FormatTime(TrackLength - CurrentTime);
+        DisplayTime.text = FormatTime(CurrentTime);
     }
 
     IEnumerator Playing()
     {
         //Get's a reference for the AudioSource and displays in the console what song is playing, how long it is and where we are starting from
         AudioSource audio = GetComponent<AudioSource>();
+
+        audio.Play();
+         
         Debug.Log("Playing Track " + TrackNumber + " Song Length " + audio.clip.length.ToString("F2") + " Playing from " + CurrentTime.ToString("F2"));
+
+       /* //Displays the song name
+        DisplayName.text = audio.clip.name;
+
+        // Set the slider's max value to the length of the audio clip
+        audioSlider.maxValue = audio.clip.length;
+
+        // Add listeners to handle the slider events
+        audioSlider.onValueChanged.AddListener(OnSliderValueChanged);
+
+        //Figures out how long is left of the audio clip and then waits until it's finished before continuing
+        ClipTime = audio.clip.length - CurrentTime; */
+
+        yield return new WaitForSeconds(audio.clip.length - CurrentTime);
+
+         //Checks if the music is paused
+         if (!Paused)
+         {
+            //If the music isn't shuffled it saves the current track (incase it gets put on shuffle) and Increases the track number before beggining the next track
+            //Also checks that the clip has definitely finished playing before starting the next song
+            if (!Shuffle)
+             {
+                 if (CurrentTime >= audio.clip.length)
+                 {
+                     PrevTrack = TrackNumber;
+                    // TrackNumber += 1;
+                     TrackNumber = (TrackNumber + 1) % Tracks.Length;
+                     PlaySong();
+                     StopCoroutine(Playing());
+                 }
+             }
+
+             //If the music is on shuffle, it calls the Shuffled function which saves the current Track as the previous one and plays a random track next
+             //Also checks that the clip has definitely finished playing before starting the next song
+             else if (Shuffle)
+             {
+                 if (CurrentTime >= audio.clip.length)
+                 {
+                     Shuffled();
+                     StopCoroutine(Playing());
+                 }
+             }
+         }
+    }
+
+    public void PlaySong()
+    {
+        //Get's a reference for the AudioSource
+        AudioSource audio = GetComponent<AudioSource>();
+
+        if (TrackNumber < 0 || TrackNumber >= Tracks.Length) return;
+
+        audio.clip = Tracks[TrackNumber];
+        CurrentTime = 0;
+
+        //Sets the audio slider back to 0
+        audioSlider.value = 0;
+
+        //resets the displayed time
+        displayseconds = 0;
+        displayminutes = 0;
 
         //Displays the song name
         DisplayName.text = audio.clip.name;
@@ -209,295 +298,28 @@ public class MusicManager : MonoBehaviour
         //Figures out how long is left of the audio clip and then waits until it's finished before continuing
         ClipTime = audio.clip.length - CurrentTime;
 
-        yield return new WaitForSeconds(ClipTime);
-
-        //Checks if the music is paused
         if (!Paused)
         {
-            //If the music isn't shuffled it saves the current track (incase it gets put on shuffle) and Increases the track number before beggining the next track
-            //Also checks that the clip has definitely finished playing before starting the next song
-            if (!Shuffle)
-            {
-                if (CurrentTime >= audio.clip.length)
-                {
-                    PrevTrack = TrackNumber;
-                    TrackNumber += 1;
-                    PlaySong();
-                    StopCoroutine(Playing());
-                }
-            }
-
-            //If the music is on shuffle, it calls the Shuffled function which saves the current Track as the previous one and plays a random track next
-            //Also checks that the clip has definitely finished playing before starting the next song
-            else if (Shuffle)
-            {
-                if (CurrentTime >= audio.clip.length)
-                {
-                    Shuffled();
-                    StopCoroutine(Playing());
-                }
-            }
-        }
-    }
-
-    public void PlaySong()
-    {
-        //Get's a reference for the AudioSource
-        AudioSource audio = GetComponent<AudioSource>();
-
-        //Sets the audio slider back to 0
-        audioSlider.value = 0;
-
-        //resets the displayed time
-        displayseconds = 0;
-        displayminutes = 0;
-
-        //Checks the current track number and Plays the relevant track
-        //Also resets the time to 0 and gets the Length of the track
-        //If the track number is below 1 or above 26 it sets the track number back to 1
-        if (TrackNumber <= 0)
-        {
-            TrackNumber = 1;
-            PlaySong();
-        }
-        
-        if (TrackNumber == 1)
-        {
-            audio.clip = Track1;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
             StartCoroutine(Playing());
-        }
-
-        else if (TrackNumber == 2)
-        {
-            audio.clip = Track2;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-
-        else if (TrackNumber == 3)
-        {
-            audio.clip = Track3;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-
-        else if (TrackNumber == 4)
-        {
-            audio.clip = Track4;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-
-        else if (TrackNumber == 5)
-        {
-            audio.clip = Track5;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-
-        else if (TrackNumber == 6)
-        {
-            audio.clip = Track6;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-
-        else if (TrackNumber == 7)
-        {
-            audio.clip = Track7;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-
-        else if (TrackNumber == 8)
-        {
-            audio.clip = Track8;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 9)
-        {
-            audio.clip = Track9;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 10)
-        {
-            audio.clip = Track10;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 11)
-        {
-            audio.clip = Track11;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 12)
-        {
-            audio.clip = Track12;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 13)
-        {
-            audio.clip = Track13;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 14)
-        {
-            audio.clip = Track14;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 15)
-        {
-            audio.clip = Track15;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 16)
-        {
-            audio.clip = Track16;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 17)
-        {
-            audio.clip = Track17;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 18)
-        {
-            audio.clip = Track18;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 19)
-        {
-            audio.clip = Track19;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 20)
-        {
-            audio.clip = Track20;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 21)
-        {
-            audio.clip = Track21;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 22)
-        {
-            audio.clip = Track22;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 23)
-        {
-            audio.clip = Track23;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 24)
-        {
-            audio.clip = Track24;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 25)
-        {
-            audio.clip = Track25;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber == 26)
-        {
-            audio.clip = Track26;
-            TrackLength = audio.clip.length;
-            CurrentTime = 0;
-            audio.Play();
-            StartCoroutine(Playing());
-        }
-        else if (TrackNumber >= 27)
-        {
-            TrackNumber = 1;
-            PlaySong();
         }
     }
 
     public void Skip()
     {
+        StopCoroutine(Playing());
+
         //Plays the next song
         //If shuffled, it calls the shuffle function, if not shuffled it increases the track number and then plays the next song
         if (!Shuffle)
         {
-            StopCoroutine(Playing());
-            PrevTrack = TrackNumber;
-            TrackNumber += 1;
+            /* PrevTrack = TrackNumber;
+             TrackNumber += 1; */
+            TrackNumber = (TrackNumber + 1) % Tracks.Length;
             PlaySong();
         }
 
         else if (Shuffle)
         {
-            StopCoroutine(Playing());
             Shuffled();
         }
     }
@@ -506,19 +328,30 @@ public class MusicManager : MonoBehaviour
     {
         //Plays the previous song
         //If shuffled it plays the previous track number, if not shuffled it simply goes back 1 track
-        if (!Shuffle)
-        {
-            StopCoroutine(Playing());
-            TrackNumber -= 1;
-            PlaySong();
-        }
+        /* if (!Shuffle)
+         {
+             StopCoroutine(Playing());
+             TrackNumber -= 1;
+             PlaySong();
+         }
 
-        else if (Shuffle)
+         else if (Shuffle)
+         {
+             StopCoroutine(Playing());
+             TrackNumber = PrevTrack;
+             PlaySong();
+         }*/
+
+        StopCoroutine(Playing());
+        if (Shuffle)
         {
-            StopCoroutine(Playing());
             TrackNumber = PrevTrack;
-            PlaySong();
         }
+        else
+        {
+            TrackNumber = (TrackNumber - 1 + Tracks.Length) % Tracks.Length;
+        }
+        PlaySong();
     }
 
     public void OnPointerDown()
@@ -567,19 +400,27 @@ public class MusicManager : MonoBehaviour
     private void Shuffled()
     {
         //Saves the current track as the previous track before randomising the current track
+        /*   PrevTrack = TrackNumber;
+           TrackNumber = Random.Range(1, 27);
+
+           //Checks to make sure you can't hear the same song twice in a row
+           if (TrackNumber == PrevTrack)
+           {
+               Shuffled();
+           }
+
+           else if (TrackNumber != PrevTrack)
+           {
+               PlaySong();
+           } */
+
         PrevTrack = TrackNumber;
-        TrackNumber = Random.Range(1, 27);
-
-        //Checks to make sure you can't hear the same song twice in a row
-        if (TrackNumber == PrevTrack)
+        do
         {
-            Shuffled();
-        }
+            TrackNumber = Random.Range(0, Tracks.Length);
+        } while (TrackNumber == PrevTrack);
 
-        else if (TrackNumber != PrevTrack)
-        {
-            PlaySong();
-        }
+        PlaySong();
     }
 
     public void ToggleShuffle()
@@ -614,5 +455,12 @@ public class MusicManager : MonoBehaviour
 
             dragged = true;
         }
+    }
+
+    private string FormatTime(float time)
+    {
+        int minutes = Mathf.FloorToInt(time / 60);
+        int seconds = Mathf.FloorToInt(time % 60);
+        return $"{minutes:00}:{seconds:00}";
     }
 }
