@@ -218,12 +218,14 @@ public class MusicManager : MonoBehaviour
     public void OnPointerDown()
     {
         isDragging = true;
+        audioSlider.wholeNumbers = true;
         Pause();
     }
 
     public void OnPointerUp()
     {
         isDragging = false;
+        audioSlider.wholeNumbers = false;
         Resume();
     }
 
