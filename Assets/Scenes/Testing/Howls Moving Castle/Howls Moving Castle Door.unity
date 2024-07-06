@@ -7997,6 +7997,7 @@ GameObject:
   - component: {fileID: 2098293593}
   - component: {fileID: 2098293595}
   - component: {fileID: 2098293594}
+  - component: {fileID: 2098293596}
   m_Layer: 0
   m_Name: Fake wall
   m_TagString: Untagged
@@ -8069,6 +8070,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098293592}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &2098293596
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098293592}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10.000005, y: 0.00000075091725, z: 10.000002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2100080668
 GameObject:
   m_ObjectHideFlags: 0
