@@ -577,10 +577,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8c3accebfcb213e4a8b439342cb9dbd9, type: 3}
   - {fileID: 8300000, guid: 01691b198e916b94b86f7f2c57ee00e8, type: 3}
   - {fileID: 8300000, guid: 3390c18e486f2864fb769a5b073bce31, type: 3}
-  DisplayName: {fileID: 604798939}
-  DisplayTime: {fileID: 362193600}
-  DisplayRemaining: {fileID: 1119035071}
-  AudioSlider: {fileID: 2147050966}
+  DisplayName: {fileID: 728639825}
+  DisplayTime: {fileID: 1921670454}
+  DisplayRemaining: {fileID: 1112493825}
+  AudioSlider: {fileID: 2146281995}
   PauseButton: {fileID: 418677687}
   ResumeButton: {fileID: 1196028424}
   TrackNumber: 1
@@ -1813,7 +1813,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1922,8 +1922,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278815561
+  m_fontColor: {r: 0.28627452, g: 0.54509807, b: 0.03529412, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2047,7 +2047,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &758931199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2791,8 +2791,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278815561
+  m_fontColor: {r: 0.28627452, g: 0.54509807, b: 0.03529412, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3698,7 +3698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+  m_Color: {r: 0.28235295, g: 0.54509807, b: 0.03529412, a: 0.2}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5129,7 +5129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652433663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -8.41}
+  m_LocalPosition: {x: 0, y: -0, z: -0.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5968,8 +5968,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278814536
+  m_fontColor: {r: 0.28235295, g: 0.5294118, b: 0.03529412, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6070,7 +6070,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 11, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
