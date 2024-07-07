@@ -6325,7 +6325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd0e73266090f94ea7927da1368c184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Axis: 0
+  Axis: 3
   ConnectedBody: {fileID: 8185455608815245363}
   StopOnRelease: 1
   DisableGravity: 1
@@ -6335,7 +6335,7 @@ MonoBehaviour:
   GrabbedDamper: 3
   Damper: 3
   Spring: 0
-  JointStartRotation: {x: 0, y: 0, z: 0, w: 1}
+  JointStartRotation: {x: 1, y: 0, z: 0, w: 0}
   TargetAngularVelocity: 0
 --- !u!205 &4779593762398140846
 LODGroup:
@@ -6376,7 +6376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e9f8f507f775b4aa48c08844126549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Axis: 0
+  Axis: 3
   Steps: 100
   AngleThreshold: 1
   MaximumAngle: 180
@@ -6754,8 +6754,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5390645215387290841}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: -0.029, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6765,7 +6765,7 @@ Transform:
   - {fileID: 1745903187768106620}
   m_Father: {fileID: 5222068429544120353}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!114 &7122790982145360675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6896,7 +6896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _AudioSource: {fileID: 268611728}
-  _Volume: 0
+  _Volume: 1
   _currentStep: 0
 --- !u!4 &7195892184403650072
 Transform:
