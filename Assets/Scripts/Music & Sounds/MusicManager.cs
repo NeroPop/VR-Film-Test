@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using Random = UnityEngine.Random;
@@ -25,6 +26,7 @@ public class MusicManager : MonoBehaviour
     public Slider AudioSlider;
     public GameObject PauseButton;
     public GameObject ResumeButton;
+    static public float TimePercent;
 
     [Header("Music Information")]
 
@@ -61,6 +63,9 @@ public class MusicManager : MonoBehaviour
     private float remaining;
     private float remainingseconds;
     private float remainingminutes;
+
+    //Events
+    public UnityEvent ResetDial;
 
 
     //Tells unity what onUnpdate is because it's dumb
@@ -103,12 +108,14 @@ public class MusicManager : MonoBehaviour
             //If the user isnt dragging the audio slider then it sets the audio slider to the current time to keep track of progress
             if (!isDragging)
             {
-                AudioSlider.value = CurrentTime;
+                //AudioSlider.value = CurrentTime;
+                TimePercent = (CurrentTime / TrackLength) * 100;
             }
         }
         //Displays the current and remaining times
         DisplayRemaining.text = "-" + FormatTime(TrackLength - CurrentTime);
         DisplayTime.text = FormatTime(CurrentTime);
+        AudioSlider.value = CurrentTime;
     }
 
     IEnumerator Playing()
@@ -172,6 +179,9 @@ public class MusicManager : MonoBehaviour
         AudioSlider.value = 0;
         displayseconds = 0;
         displayminutes = 0;
+
+        //Resets the dial back to 0
+        ResetDial.Invoke();
 
         //Displays the song name
         DisplayName.text = audio.clip.name;
@@ -311,6 +321,28 @@ public class MusicManager : MonoBehaviour
             // Update the audio playback time to match the slider value
             audio.time = value;
             CurrentTime = value;
+
+            //update the display times to match the slider value
+            displayseconds = CurrentTime;
+            displayminutes = ((int)displayseconds) / 60;
+            displayseconds = displayseconds - (displayminutes * 60);
+        }
+    }
+
+    public void OnDialScrubChanged()
+    {
+        //Get's a reference for the AudioSource
+        AudioSource audio = GetComponent<AudioSource>();
+
+        if (isDragging)
+        {
+            // Update the audio playback time to match the slider value
+            CurrentTime = (TimePercent / 100) * TrackLength;
+            audio.time = CurrentTime;
+
+
+           // audio.time = value;
+           // CurrentTime = value;
 
             //update the display times to match the slider value
             displayseconds = CurrentTime;
