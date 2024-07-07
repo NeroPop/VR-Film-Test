@@ -1,21 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class VolumeDial : MonoBehaviour
 {
     public AudioSource _AudioSource;
 
     [SerializeField]
-    private float _Volume;
+    public float _Volume;
 
-    /// <summary>Sets the snap amount based on user input.</summary>
+    [SerializeField]
+    private float _currentStep;
+
+    private void Start()
+    {
+        _Volume = 1;
+    }
+
     /// <param name="step">User input.</param>
     public void SetVolume(int step)
     {
-        _Volume = (step / 180) * 100;
+        _currentStep = step;
 
+        _Volume = _currentStep / 100;
+
+       _AudioSource.volume = _Volume;
+    }
+
+    private void Update()
+    {
         _AudioSource.volume = _Volume;
     }
 }

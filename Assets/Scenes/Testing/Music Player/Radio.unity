@@ -6377,7 +6377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Axis: 0
-  Steps: 180
+  Steps: 100
   AngleThreshold: 1
   MaximumAngle: 180
   StepChanged:
@@ -6896,6 +6896,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _AudioSource: {fileID: 268611728}
+  _Volume: 0
+  _currentStep: 0
 --- !u!4 &7195892184403650072
 Transform:
   m_ObjectHideFlags: 0
