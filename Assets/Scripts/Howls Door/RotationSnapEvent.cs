@@ -24,7 +24,7 @@ public class RotationSnapEvent : MonoBehaviour
 
     private void Start()
     {
-        Rot1.Invoke();
+        //Rot1.Invoke();
     }
 
     /// <summary>Sets the snap amount based on user input.</summary>
