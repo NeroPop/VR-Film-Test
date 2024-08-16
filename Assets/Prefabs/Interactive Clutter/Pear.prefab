@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1815685089471899027}
   - component: {fileID: 777670762889316686}
   m_Layer: 0
-  m_Name: pera
+  m_Name: Pear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
